@@ -30,7 +30,7 @@ const DonatePlans = () => {
    return (
       <section
          id='donate-plans'
-         className='min-h-[100vh] flex flex-col gap-14 justify-center items-center w-[95%] max-w-[1250px] mx-auto'
+         className='min-h-[calc(100vh-10rem)] my-[5rem] flex flex-col gap-14 justify-center items-center w-[95%] max-w-[1250px] mx-auto'
       >
          {/* section header */}
          <SectionHeader
@@ -38,7 +38,7 @@ const DonatePlans = () => {
             description='We have three different donation plan. You can chose your favorite one or you can donate in all our plans.'
          />
 
-         <div className='grid grid-cols-3 gap-3'>
+         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3'>
             {plans.map((plan, index) => (
                <div
                   key={index}

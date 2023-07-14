@@ -6,7 +6,7 @@ const Banner = () => {
          className='relative'
          style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5))' }}
       >
-         <img src={banner} alt='' className='h-[600px] w-full object-cover object-top' />
+         <img src={banner} alt='' className='h-[650px] w-full object-cover object-top' />
 
          <div
             className='absolute top-0 flex flex-col gap-7 justify-center items-center w-full h-full text-white px-[2rem] md:px-[5rem] lg:px-[10rem] xl:px-[20rem] text-center'

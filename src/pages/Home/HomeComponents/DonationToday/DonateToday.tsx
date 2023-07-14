@@ -7,7 +7,7 @@ const DonateToday = () => {
    return (
       <section
          id='donate-today'
-         className='h-[100vh] flex flex-col gap-14 justify-center items-center text-center w-[95%] max-w-[1250px] mx-auto'
+         className='min-h-[calc(100vh-10rem)] my-[5rem] flex flex-col gap-14 justify-center items-center text-center w-[95%] max-w-[1250px] mx-auto'
       >
          {/* section header */}
          <SectionHeader
@@ -16,12 +16,12 @@ const DonateToday = () => {
                Amount and Press Donate Now.'
          />
 
-         <div className='grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6'>
+         <div className='grid gap-5 grid-cols-2 lg:grid-cols-3 xl:grid-cols-6'>
             {donationAmount.map((amount, index) => (
                <button
                   onClick={() => setDonateAmount(amount)}
                   key={index}
-                  className={`p-12  bg-opacity-20 rounded-lg text-2xl ${
+                  className={`p-12 bg-opacity-20 rounded-lg text-xl lg:text-2xl ${
                      amount === donateAmount
                         ? 'text-dark-blue bg-light-blue border-dark-blue'
                         : 'text-gray-500 bg-gray-400 border-transparent'
@@ -39,7 +39,7 @@ const DonateToday = () => {
                id=''
                defaultValue={donateAmount}
                onChange={(e) => setDonateAmount(Number(e.target.value))}
-               className='w-[80%] mx-auto border-b-2 text-center text-2xl font-semibold p-5 focus:outline-none'
+               className='w-[80%] mx-auto border-b-2 text-center text-lg lg:text-2xl font-semibold p-5 focus:outline-none'
                placeholder='Write Your Amount (Taka)'
             />
             <button className='bg-light-blue py-[10px] px-[20px] rounded-lg text-xl text-dark-blue font-semibold flex justify-center items-center w-[10rem] mx-auto'>
