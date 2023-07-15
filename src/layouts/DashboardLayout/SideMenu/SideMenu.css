@@ -1,0 +1,7 @@
+.active-menu {
+   @apply flex items-center w-full py-2 pl-2 pr-4 text-[13px] font-semibold text-dark-blue transition-colors duration-150 bg-light-blue bg-opacity-30 rounded-lg;
+}
+
+.inactive-menu {
+   @apply flex items-center w-full py-2 pl-2 pr-4 text-[13px] font-semibold text-gray-500 transition-colors duration-150 hover:text-dark-blue focus:outline-none focus:text-dark-blue hover:bg-light-blue hover:bg-opacity-30 rounded-lg;
+}
