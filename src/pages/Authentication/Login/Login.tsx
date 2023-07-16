@@ -1,16 +1,20 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import InputField from '../../../components/InputField/InputField';
 import { Link } from 'react-router-dom';
 import config from '../../../config';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { UserContext } from '../../../context/UserProvider';
 
 const Login = () => {
+   const { setUser } = useContext(UserContext);
    const {
       register,
       handleSubmit,
@@ -25,9 +29,21 @@ const Login = () => {
       await axios
          .post(`${config.apiUrl}/auth/login`, data)
          .then((res: any) => {
-            console.log(res);
-            toast.success(res.data.message);
-            reset();
+            localStorage.setItem('token', res.data.data.accessToken);
+            axios
+               .get(`${config.apiUrl}/auth/user-data`, {
+                  headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+               })
+               .then((res: any) => {
+                  setUser(res.data.data);
+                  toast.success('Login Success');
+                  reset();
+               })
+               .catch((err: any) => {
+                  console.log(`error`, err.response);
+                  setError(err.response.data.message);
+                  toast.error(err.response.data.message);
+               });
          })
          .catch((err: any) => {
             console.log(`error`, err.response);
