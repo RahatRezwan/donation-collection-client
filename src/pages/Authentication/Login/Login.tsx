@@ -1,20 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import InputField from '../../../components/InputField/InputField';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import config from '../../../config';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../../context/UserProvider';
 
 const Login = () => {
-   const { setUser } = useContext(UserContext);
+   const { setUser, setLoading } = useContext(UserContext);
    const {
       register,
       handleSubmit,
@@ -23,20 +24,25 @@ const Login = () => {
    } = useForm();
 
    const [error, setError] = useState<string>('');
+   const navigate = useNavigate();
+   const location = useLocation();
+   const from = location?.state?.from?.pathname || '/dashboard';
 
    const handleLogin = async (data: any) => {
       setError('');
+      /* setLoading(true); */
       await axios
          .post(`${config.apiUrl}/auth/login`, data)
          .then((res: any) => {
             localStorage.setItem('token', res.data.data.accessToken);
             axios
                .get(`${config.apiUrl}/auth/user-data`, {
-                  headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+                  headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
                })
                .then((res: any) => {
                   setUser(res.data.data);
                   toast.success('Login Success');
+                  navigate(from);
                   reset();
                })
                .catch((err: any) => {

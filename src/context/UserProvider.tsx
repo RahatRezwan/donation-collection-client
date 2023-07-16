@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-floating-promises */
@@ -32,14 +33,25 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       if (token && user === null) {
          axios
             .get(`${config.apiUrl}/auth/user-data`, {
-               headers: { Authorization: `Bearer ${token}` },
+               headers: { authorization: `Bearer ${token}` },
             })
             .then((res: any) => {
-               setUser(res.data);
+               setUser(res.data.data);
                setLoading(false);
+            })
+            .catch((err: any) => {
+               if (err.response.status === 500) {
+                  localStorage.removeItem('token');
+                  setLoading(false);
+                  setUser(null);
+               }
             });
+      } else {
+         setLoading(false);
       }
    }, [user]);
+
+   console.log(user);
 
    const userInfo: UserProviderProps = {
       user,
