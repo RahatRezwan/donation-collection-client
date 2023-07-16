@@ -4,11 +4,11 @@ export const NavMenu = [
       url: '/',
    },
    {
-      title: 'About',
-      url: '/about',
+      title: 'Donate',
+      url: '/#donate-today',
    },
    {
-      title: 'Contact',
-      url: '/contact',
+      title: 'Plans',
+      url: '/#donate-plans',
    },
 ];

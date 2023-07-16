@@ -6,3 +6,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.label_text {
+   @apply text-[13px] leading-6 font-inter text-gray-600 font-semibold capitalize;
+}
+
+.label_text2 {
+   @apply text-[13px] leading-6 font-inter text-red-500 font-semibold capitalize;
+}
+
+.input_text {
+   @apply border w-full bg-light-blue bg-opacity-10 rounded-lg border-gray-300 py-2 px-[10px] font-inter text-sm leading-6 placeholder:capitalize text-dark-blue focus:outline-dark-blue;
+}
+
+.input_text2 {
+   @apply border w-full bg-red-50 rounded-lg py-2 px-[10px] font-inter text-sm leading-6 placeholder:capitalize text-dark-blue focus:outline-dark-blue;
+}
+
+.btn-lg {
+   @apply bg-light-blue py-[10px] px-[20px] rounded-lg text-xl text-dark-blue font-semibold flex justify-center items-center w-full mx-auto border border-transparent hover:bg-transparent hover:border hover:border-dark-blue transition-all delay-75;
+}
+.btn-md {
+   @apply bg-light-blue py-[6px] px-[12px] rounded-lg text-lg text-dark-blue font-semibold flex justify-center items-center w-full mx-auto border border-transparent hover:bg-transparent hover:border hover:border-dark-blue transition-all delay-75;
+}
+
+* {
+   scroll-behavior: smooth;
+}

@@ -9,21 +9,21 @@ const DonatePlans = () => {
          title: 'Food for poor family',
          description:
             'Food problem is a biggest problem of our country. More than 40% people are starving. Our Food For Poor plan helps them to overcome their starvation problem.',
-         bg_color: 'blue-300',
+         bg_color: 'bg-blue-300',
          icon: food,
       },
       {
          title: 'Shelter for poor family',
          description:
             'In Bangladesh more than 5 millions peoples are homeless. and 124 million live in mud houses and slums. Our shelter for poor plan is for providing them a safe house.',
-         bg_color: 'red-300',
+         bg_color: 'bg-red-300',
          icon: shelter,
       },
       {
          title: 'Health Care for poor family',
          description:
             'Another big problem for poor is health problem. They cannot get proper treatment and cannot buy medicine when they needed. Our healthcare plan will help them get proper healthcare facilities without any cost.',
-         bg_color: 'green-300',
+         bg_color: 'bg-green-300',
          icon: medicine,
       },
    ];
@@ -42,7 +42,7 @@ const DonatePlans = () => {
             {plans.map((plan, index) => (
                <div
                   key={index}
-                  className={`bg-${plan.bg_color} bg-opacity-50 text-left p-8 rounded-lg text-[15px] font-bold flex flex-col gap-6`}
+                  className={`${plan.bg_color} bg-opacity-50 text-left p-8 rounded-lg text-[15px] font-bold flex flex-col gap-6`}
                >
                   <img src={plan.icon} alt='' className='w-[3.5rem]' />
                   <h2 className='text-xl'>{plan.title}</h2>
