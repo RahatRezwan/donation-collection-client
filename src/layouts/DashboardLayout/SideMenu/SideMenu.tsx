@@ -1,8 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { NavLink, Link } from 'react-router-dom';
 import './SideMenu.css';
 import { DashboardMenus } from '../DashboardMenus';
 import donateNow from '../../../assets/donatenow.png';
 import { FiSidebar } from 'react-icons/fi';
+import { UserContext } from '../../../context/UserProvider';
+import { useContext } from 'react';
+import { BiLogOut } from 'react-icons/bi';
 
 interface SideMenuProps {
    showMenu: boolean;
@@ -10,6 +16,7 @@ interface SideMenuProps {
 }
 
 const SideMenu = ({ showMenu, setShowMenu }: SideMenuProps) => {
+   const { user, logout } = useContext(UserContext);
    return (
       <div
          className={`flex flex-col w-[16rem] bg-white border-r border-gray-200 h-screen fixed left-0 top-0 z-[6] transition-all delay-300 ${
@@ -26,7 +33,10 @@ const SideMenu = ({ showMenu, setShowMenu }: SideMenuProps) => {
                </button>
             </div>
             {DashboardMenus.map((menu, index) => (
-               <div key={index}>
+               <div
+                  key={index}
+                  className={`${menu?.role?.includes(user?.role) ? 'block' : 'hidden'}`}
+               >
                   <NavLink
                      to={menu.link}
                      className={({ isActive }) => (isActive ? 'active-menu' : 'inactive-menu')}
@@ -39,6 +49,11 @@ const SideMenu = ({ showMenu, setShowMenu }: SideMenuProps) => {
                   </NavLink>
                </div>
             ))}
+
+            <button onClick={logout} className='inactive-menu'>
+               <BiLogOut className='text-base mr-2' />
+               Logout
+            </button>
          </nav>
       </div>
    );

@@ -21,7 +21,7 @@ const Navbar = () => {
                   </a>
                ))}
 
-               {user?.data?.email ? (
+               {user?.email ? (
                   <>
                      <Link to='/dashboard'>Dashboard</Link>
                   </>

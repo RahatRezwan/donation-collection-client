@@ -6,25 +6,24 @@ export const DashboardMenus = [
       name: 'Profile',
       icon: <CgProfile />,
       link: '/dashboard',
+      role: ['admin', 'donor'],
    },
    {
       name: 'Home',
       icon: <FiHome />,
       link: '/',
-   },
-   {
-      name: 'My Donations',
-      icon: <LiaDonateSolid />,
-      link: '/dashboard/my-donations',
+      role: ['admin', 'donor'],
    },
    {
       name: 'Donations Lists',
       icon: <LiaDonateSolid />,
       link: '/dashboard/donations-list',
+      role: ['admin'],
    },
    {
       name: 'Donors',
       icon: <LiaUsersSolid />,
       link: '/dashboard/donors',
+      role: ['admin'],
    },
 ];

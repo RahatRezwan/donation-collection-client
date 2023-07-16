@@ -52,7 +52,7 @@ export const createDonor = createAsyncThunk<any, any>('donors/createDonor', asyn
 });
 
 //fetch all
-export const fetchDonors = createAsyncThunk<any, any>('donors/fetchDonors', async () => {
+export const fetchDonors = createAsyncThunk('donors/fetchDonors', async () => {
    const res: { data: IResponseData } = await axios.get(`${config.apiUrl}/donors`, {
       headers: {
          Authorization: `Bearer ${localStorage.getItem('token')}`,

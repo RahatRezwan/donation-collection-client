@@ -6,6 +6,8 @@ import Dashboard from '../../pages/Dashboard/Dashboard/Dashboard';
 import Login from '../../pages/Authentication/Login/Login';
 import Register from '../../pages/Authentication/Register/Register';
 import PrivateRoute from '../PrivateRoutes/PrivateRoute';
+import DonorsList from '../../pages/Dashboard/DonorsList/DonorsList';
+import AdminRoutes from '../PrivateRoutes/AdminRoutes';
 
 export const router = createBrowserRouter([
    {
@@ -24,6 +26,16 @@ export const router = createBrowserRouter([
             <DashboardLayout />
          </PrivateRoute>
       ),
-      children: [{ path: '/dashboard', element: <Dashboard /> }],
+      children: [
+         { path: '/dashboard', element: <Dashboard /> },
+         {
+            path: '/dashboard/donors',
+            element: (
+               <AdminRoutes>
+                  <DonorsList />
+               </AdminRoutes>
+            ),
+         },
+      ],
    },
 ]);
