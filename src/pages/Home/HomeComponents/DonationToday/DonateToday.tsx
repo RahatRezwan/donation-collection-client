@@ -1,9 +1,18 @@
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { useState, useContext } from 'react';
 import SectionHeader from '../../../../components/SectionHeader/SectionHeader';
+import CreateAndEditDonationModal from '../../../../components/Modals/CreateAndEditDonationModal/CreateAndEditDonationModal';
+import { UserContext } from '../../../../context/UserProvider';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const DonateToday = () => {
+   const { user } = useContext(UserContext);
    const donationAmount = [100, 200, 500, 1000, 5000, 10000];
    const [donateAmount, setDonateAmount] = useState<number>();
+   const [openDonateModal, setOpenDonateModal] = useState<boolean>(false);
+   const navigate = useNavigate();
    return (
       <section
          id='donate-today'
@@ -42,10 +51,24 @@ const DonateToday = () => {
                className='w-[80%] mx-auto border-b-2 text-center text-lg lg:text-2xl font-semibold p-5 focus:outline-none'
                placeholder='Write Your Amount (Taka)'
             />
-            <button className='bg-light-blue py-[10px] px-[20px] rounded-lg text-xl text-dark-blue font-semibold flex justify-center items-center w-[10rem] mx-auto'>
+            <button
+               onClick={() =>
+                  user?.email
+                     ? user?.role === 'donor'
+                        ? setOpenDonateModal(true)
+                        : toast.error('You Need a donor Account')
+                     : (navigate('/login'), toast.error('You Need to Login'))
+               }
+               className='bg-light-blue py-[10px] px-[20px] rounded-lg text-xl text-dark-blue font-semibold flex justify-center items-center w-[10rem] mx-auto'
+            >
                Donate Now
             </button>
          </div>
+         <CreateAndEditDonationModal
+            isOpen={openDonateModal}
+            setIsOpen={setOpenDonateModal}
+            amount={donateAmount}
+         />
       </section>
    );
 };

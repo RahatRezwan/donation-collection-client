@@ -9,7 +9,7 @@ import { useEffect, useMemo } from 'react';
 import { deleteDonor, fetchDonors } from '../../../Redux/features/donorSlice/donorSlice';
 import { useOutletContext } from 'react-router-dom';
 import DataTable from '../../../components/DataTable/DataTable';
-import { MdDelete, MdEdit } from 'react-icons/md';
+import { MdDelete } from 'react-icons/md';
 import HomeLoader from '../../../components/Loaders/HomeLoader/HomeLoader';
 
 const DonorsList = () => {
@@ -65,9 +65,6 @@ const DonorsList = () => {
             Header: ' ',
             Cell: ({ row }: any) => (
                <div className=' items-center gap-2 hidden group-hover:flex'>
-                  {/* <button className=' text-xl text-dark-blue'>
-                     <MdEdit />
-                  </button> */}
                   <button
                      onClick={() => dispatch(deleteDonor(row?.original?.id))}
                      className=' text-xl text-red-500'
@@ -78,7 +75,7 @@ const DonorsList = () => {
             ),
          },
       ],
-      [],
+      [dispatch],
    );
 
    return (

@@ -36,11 +36,10 @@ export const createDonations = createAsyncThunk<any, any>(
    'donations/createDonations',
    async (data) => {
       await axios
-         .post(`${config.apiUrl}/donations/create-donation`, {
+         .post(`${config.apiUrl}/donations/create-donation`, data, {
             headers: {
                Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
-            data,
          })
          .then((res: { data: IResponseData }) => {
             if (res.data.success === true) {
@@ -60,7 +59,7 @@ export const createDonations = createAsyncThunk<any, any>(
 );
 
 //fetch all
-export const fetchDonations = createAsyncThunk<any, any>('donations/fetchDonations', async () => {
+export const fetchDonations = createAsyncThunk('donations/fetchDonations', async () => {
    const res: { data: IResponseData } = await axios.get(`${config.apiUrl}/donations`, {
       headers: {
          Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -70,14 +69,17 @@ export const fetchDonations = createAsyncThunk<any, any>('donations/fetchDonatio
 });
 
 //fetch by id
-export const fetchDonationById = createAsyncThunk<any, string>(
-   'donations/fetchDonationById',
-   async (id) => {
-      const res: { data: IResponseData } = await axios.get(`${config.apiUrl}/donations/${id}`, {
-         headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+export const fetchDonationByDonorId = createAsyncThunk<any, string>(
+   'donations/fetchDonationByDonorId',
+   async (donorId) => {
+      const res: { data: IResponseData } = await axios.get(
+         `${config.apiUrl}/donations/${donorId}`,
+         {
+            headers: {
+               Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
          },
-      });
+      );
       return res.data.data;
    },
 );
@@ -87,11 +89,10 @@ export const updateDonations = createAsyncThunk<any, any>(
    'donations/updateDonations',
    async (data: any) => {
       await axios
-         .patch(`${config.apiUrl}/donations/${data.id}`, {
+         .patch(`${config.apiUrl}/donations/${data.id}`, data.data, {
             headers: {
                Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
-            data,
          })
          .then((res: { data: IResponseData }) => {
             if (res.data.success === true) {
@@ -140,14 +141,12 @@ export const deleteDonations = createAsyncThunk<any, string>(
 type donationType = {
    isLoading: boolean;
    donations: any[];
-   singleDonations: object;
    error: null | string;
 };
 
 const initialDonationState: donationType = {
    isLoading: false,
    donations: [],
-   singleDonations: {},
    error: null,
 };
 
@@ -160,9 +159,8 @@ const donationSlice = createSlice({
       builder.addCase(createDonations.pending, (state) => {
          state.isLoading = true;
       });
-      builder.addCase(createDonations.fulfilled, (state, action: PayloadAction<any>) => {
+      builder.addCase(createDonations.fulfilled, (state) => {
          state.isLoading = false;
-         state.donations = [...state.donations, action.payload];
          state.error = null;
       });
 
@@ -184,17 +182,17 @@ const donationSlice = createSlice({
       });
 
       //add case for fetch donor by id
-      builder.addCase(fetchDonationById.pending, (state) => {
+      builder.addCase(fetchDonationByDonorId.pending, (state) => {
          state.isLoading = true;
       });
-      builder.addCase(fetchDonationById.fulfilled, (state, action: PayloadAction<any>) => {
+      builder.addCase(fetchDonationByDonorId.fulfilled, (state, action: PayloadAction<any[]>) => {
          state.isLoading = false;
-         state.singleDonations = action.payload;
+         state.donations = action.payload;
          state.error = null;
       });
-      builder.addCase(fetchDonationById.rejected, (state, action) => {
+      builder.addCase(fetchDonationByDonorId.rejected, (state, action) => {
          state.isLoading = false;
-         state.singleDonations = {};
+         state.donations = [];
          state.error = action.error.message || 'Something Went Wrong';
       });
 
@@ -202,9 +200,8 @@ const donationSlice = createSlice({
       builder.addCase(updateDonations.pending, (state) => {
          state.isLoading = true;
       });
-      builder.addCase(updateDonations.fulfilled, (state, action: PayloadAction<any>) => {
+      builder.addCase(updateDonations.fulfilled, (state) => {
          state.isLoading = false;
-         state.donations = [...state.donations, action.payload];
          state.error = null;
       });
 
@@ -212,9 +209,8 @@ const donationSlice = createSlice({
       builder.addCase(deleteDonations.pending, (state) => {
          state.isLoading = true;
       });
-      builder.addCase(deleteDonations.fulfilled, (state, action: PayloadAction<any>) => {
+      builder.addCase(deleteDonations.fulfilled, (state) => {
          state.isLoading = false;
-         state.donations = [...state.donations, action.payload];
          state.error = null;
       });
    },

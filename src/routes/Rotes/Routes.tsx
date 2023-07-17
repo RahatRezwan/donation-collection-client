@@ -8,6 +8,7 @@ import Register from '../../pages/Authentication/Register/Register';
 import PrivateRoute from '../PrivateRoutes/PrivateRoute';
 import DonorsList from '../../pages/Dashboard/DonorsList/DonorsList';
 import AdminRoutes from '../PrivateRoutes/AdminRoutes';
+import DonationsList from './../../pages/Dashboard/DonationsList/DonationsList';
 
 export const router = createBrowserRouter([
    {
@@ -28,6 +29,14 @@ export const router = createBrowserRouter([
       ),
       children: [
          { path: '/dashboard', element: <Dashboard /> },
+         {
+            path: '/dashboard/donations-list',
+            element: (
+               <AdminRoutes>
+                  <DonationsList />
+               </AdminRoutes>
+            ),
+         },
          {
             path: '/dashboard/donors',
             element: (

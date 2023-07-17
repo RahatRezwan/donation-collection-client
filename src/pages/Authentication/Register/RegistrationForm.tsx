@@ -29,7 +29,7 @@ const RegistrationForm = ({ isOpen, setIsOpen, modalName }: Props) => {
       reset,
       formState: { errors },
    } = useForm();
-   const data = watch();
+   const watchData = watch();
    const [loading, setLoading] = React.useState<boolean>(false);
    const navigate = useNavigate();
 
@@ -84,7 +84,7 @@ const RegistrationForm = ({ isOpen, setIsOpen, modalName }: Props) => {
          })
          .catch((err) => {
             setLoading(false);
-            console.error('cannot updload image');
+            console.error('cannot upload image');
          });
    };
    return (
@@ -135,14 +135,14 @@ const RegistrationForm = ({ isOpen, setIsOpen, modalName }: Props) => {
                                  <div className='px-5 py-2'>
                                     {/* body start */}
                                     <div className='flex flex-col gap-4 w-full mx-auto p-3'>
-                                       {data?.profileImage?.length ? (
+                                       {watchData?.profileImage?.length ? (
                                           <button
                                              type='button'
                                              className='flex relative overflow-hidden w-32 h-32 rounded-lg group'
                                           >
                                              <img
-                                                src={URL.createObjectURL(data.profileImage[0])}
-                                                alt={data.profileImage[0].name}
+                                                src={URL.createObjectURL(watchData.profileImage[0])}
+                                                alt={watchData.profileImage[0].name}
                                                 className='w-full h-full'
                                              />
                                              <label className='group-hover:flex cursor-pointer flex-col justify-center items-center w-32 h-32 border-2 rounded-lg absolute bottom-0 bg-gray-5 opacity-70 hidden'>

@@ -1,9 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import SectionHeader from '../../../../components/SectionHeader/SectionHeader';
 import food from '../../../../assets/icons/food.png';
 import medicine from '../../../../assets/icons/medicine.svg';
 import shelter from '../../../../assets/icons/shelter.png';
+import { useContext, useState } from 'react';
+import { UserContext } from '../../../../context/UserProvider';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import CreateAndEditDonationModal from '../../../../components/Modals/CreateAndEditDonationModal/CreateAndEditDonationModal';
 
 const DonatePlans = () => {
+   const { user } = useContext(UserContext);
+   const [openDonateModal, setOpenDonateModal] = useState<boolean>(false);
+   const [donatePlan, setDonatePlan] = useState<string>('');
+   const navigate = useNavigate();
    const plans = [
       {
          title: 'Food for poor family',
@@ -45,11 +56,27 @@ const DonatePlans = () => {
                   className={`${plan.bg_color} bg-opacity-50 text-left p-8 rounded-lg text-[15px] font-bold flex flex-col gap-6`}
                >
                   <img src={plan.icon} alt='' className='w-[3.5rem]' />
-                  <h2 className='text-xl'>{plan.title}</h2>
+                  <h2
+                     onClick={() => {
+                        user?.email
+                           ? user?.role === 'donor'
+                              ? (setOpenDonateModal(true), setDonatePlan(plan.title))
+                              : toast.error('You Need a donor Account')
+                           : (navigate('/login'), toast.error('You Need to Login'));
+                     }}
+                     className='text-xl hover:underline cursor-pointer'
+                  >
+                     {plan.title}
+                  </h2>
                   <p className='font-medium text-justify text-[#949290]'>{plan.description}</p>
                </div>
             ))}
          </div>
+         <CreateAndEditDonationModal
+            isOpen={openDonateModal}
+            setIsOpen={setOpenDonateModal}
+            donation_plan={donatePlan}
+         />
       </section>
    );
 };

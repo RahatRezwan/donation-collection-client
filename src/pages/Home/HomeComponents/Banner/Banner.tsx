@@ -1,5 +1,4 @@
 import banner from '../../../../assets/banner.jpg';
-import { Link } from 'react-router-dom';
 const Banner = () => {
    return (
       <section
@@ -21,11 +20,11 @@ const Banner = () => {
                In Bangladesh more than 30% of the population lived below the poverty line. So open
                your hand, donate now and save the people.
             </p>
-            <Link to='' target='_blank'>
+            <a href='/#donate-today'>
                <button className='bg-[#A6B6F8] py-[10px] px-[20px] rounded-lg text-xl text-[#041F60] font-semibold flex justify-center items-center'>
                   Donate Now
                </button>
-            </Link>
+            </a>
          </div>
       </section>
    );

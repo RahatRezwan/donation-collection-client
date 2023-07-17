@@ -8,11 +8,11 @@ import { UserContext } from '../../context/UserProvider';
 const Navbar = () => {
    const { user } = useContext(UserContext);
    return (
-      <div className='h-[3.5rem] border-b border-b-gray-300'>
+      <div className='h-[3.5rem] border-b border-b-gray-300 sticky top-0 z-10 bg-white'>
          <div className='flex items-center justify-between w-[97%] max-w-[1400px] mx-auto h-full'>
-            <div>
+            <Link to='/'>
                <img src={donatenow} alt='' className='w-[120px]' />
-            </div>
+            </Link>
 
             <div className='flex items-center gap-5'>
                {NavMenu.map((item, index) => (

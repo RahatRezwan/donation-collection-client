@@ -195,9 +195,8 @@ const donorSlice = createSlice({
       builder.addCase(deleteDonor.pending, (state) => {
          state.isLoading = true;
       });
-      builder.addCase(deleteDonor.fulfilled, (state, action: PayloadAction<any>) => {
+      builder.addCase(deleteDonor.fulfilled, (state) => {
          state.isLoading = false;
-         state.donors = [...state.donors, action.payload];
          state.error = null;
       });
    },
