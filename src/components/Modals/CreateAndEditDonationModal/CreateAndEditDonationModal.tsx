@@ -227,7 +227,7 @@ const CreateAndEditDonationModal = ({
                                        type='submit'
                                        className='border text-md px-10 py-[6px] rounded-lg bg-green-500 text-white transition  hover:bg-transparent hover:border-green-500 hover:text-green-500 hover:delay-100'
                                     >
-                                       Donate
+                                       {loading ? 'loading...' : 'Donate'}
                                     </button>
                                  </div>
                               </form>

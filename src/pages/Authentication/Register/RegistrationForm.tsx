@@ -84,7 +84,7 @@ const RegistrationForm = ({ isOpen, setIsOpen, modalName }: Props) => {
          })
          .catch((err) => {
             setLoading(false);
-            console.error('cannot upload image');
+            console.error(err);
          });
    };
    return (
@@ -263,7 +263,7 @@ const RegistrationForm = ({ isOpen, setIsOpen, modalName }: Props) => {
                                        type='submit'
                                        className='border text-md px-10 py-[6px] rounded-lg bg-green-500 text-white transition  hover:bg-transparent hover:border-green-500 hover:text-green-500 hover:delay-100'
                                     >
-                                       Signup
+                                       {loading ? 'Loading...' : 'Register'}
                                     </button>
                                  </div>
                               </form>

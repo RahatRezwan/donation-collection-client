@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import InputField from '../../../components/InputField/InputField';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import { UserContext } from '../../../context/UserProvider';
 
 const Login = () => {
-   const { setUser, setLoading } = useContext(UserContext);
+   const { setUser } = useContext(UserContext);
    const {
       register,
       handleSubmit,
